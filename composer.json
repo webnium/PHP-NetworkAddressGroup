@@ -1,6 +1,7 @@
 {
     "name": "webnium/network-address-group",
     "description": "Utility for grouped network address manipulation",
+    "version": "1.0.0",
     "require": {
         "leth/ip-address": "master@dev"
     },
