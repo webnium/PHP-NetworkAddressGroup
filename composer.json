@@ -3,7 +3,8 @@
     "description": "Utility for grouped network address manipulation",
     "version": "1.0.1-dev",
     "require": {
-        "leth/ip-address": "master@dev"
+        "leth/ip-address": "master@dev",
+        "php": ">=5.5.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.5",
