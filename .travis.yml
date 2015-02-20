@@ -11,3 +11,5 @@ script:
   - vendor/bin/phpmd src/ text phpmd.xml
   - vendor/bin/phpunit
 
+after_script:
+  - php vendor/bin/coveralls -v
