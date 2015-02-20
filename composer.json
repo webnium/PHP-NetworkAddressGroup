@@ -1,0 +1,29 @@
+{
+    "name": "webnium/network-address-group",
+    "description": "Utility for grouped network address manipulation",
+    "require": {
+        "leth/ip-address": "master@dev"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.5",
+        "squizlabs/php_codesniffer": "~2.2",
+        "phpmd/phpmd": "~2.2"
+    },
+    "license": "MIT License",
+    "authors": [
+        {
+            "name": "MugeSo",
+            "email": "mugeso@mugeso.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Webnium\\IpAddress\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Webnium\\IpAddress\\": "tests"
+        }
+    }
+}
