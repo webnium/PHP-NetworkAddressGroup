@@ -1,7 +1,7 @@
 {
     "name": "webnium/network-address-group",
     "description": "Utility for grouped network address manipulation",
-    "version": "1.0.1-dev",
+    "version": "1.0.1",
     "require": {
         "leth/ip-address": "master@dev",
         "php": ">=5.5.0"
