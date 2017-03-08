@@ -57,6 +57,7 @@ class NetworkAddressGroup implements \Countable
 
         $this->networks = NetworkAddress::merge($this->networks);
         usort($this->networks, [NetworkAddress::class, 'compare']);
+        $this->optimized = true;
     }
 
     /**
