@@ -1,0 +1,46 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__ . '/../vendor/autoload.php';
+
+use Webnium\IpAddress\NetworkAddressGroup;
+
+if ($argc <= 1) {
+    printUsage(STDERR);
+    exit(1);
+}
+
+if ($argv[1] === '--help') {
+    printUsage();
+    exit();
+}
+
+$loop = 1000;
+echo "calling NetworkAddressGroup::encloses(\$ip) $loop times", PHP_EOL;
+$networks = file($argv[1], FILE_IGNORE_NEW_LINES);
+
+$group = new NetworkAddressGroup($networks);
+
+$startAt = microtime(true);
+
+mt_srand(3235);
+for ($i = 0; $i < $loop; $i++) {
+    $group->encloses(long2ip(mt_rand(0, ip2long('255.255.255.255'))));
+}
+$endAt = microtime(true);
+
+echo $endAt - $startAt, " sec", PHP_EOL;
+
+function printUsage($fp = STDOUT)
+{
+    global $argv;
+    fprintf($fp, <<<EOT
+Usage: {$argv[0]} <file>
+
+Args:
+    file: path to plain text file includes IPv4 network address for each line.
+
+EOT
+);
+}
+
