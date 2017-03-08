@@ -1,11 +1,11 @@
 {
     "name": "webnium/network-address-group",
     "description": "Utility for grouped network address manipulation",
-    "keywords": ["ip",  "address", "network", "group"],
-    "version": "1.0.1",
+    "keywords": ["ip",  "address", "network", "group", "network address group", "IPv4"],
+    "version": "1.0.3",
     "require": {
-        "leth/ip-address": "master@dev",
-        "php": ">=5.5.0"
+        "php": ">=5.5.0",
+        "leth/ip-address": "^1.1"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.5",
