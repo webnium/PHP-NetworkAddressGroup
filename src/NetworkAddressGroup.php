@@ -74,7 +74,7 @@ class NetworkAddressGroup implements \Countable
         $min = 0;
         $max = count($this) - 1;
 
-        for ($index = $max >> 1; $min <= $max; $index = ($max+$min) >> 1 ) {
+        for ($index = $max >> 1; $min <= $max; $index = ($max+$min) >> 1) {
             $network = $networks[$index];
             if ($network->get_network_start()->compare_to($address) > 0) {
                 $max = $index - 1;
