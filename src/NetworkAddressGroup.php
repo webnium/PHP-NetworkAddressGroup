@@ -61,7 +61,7 @@ class NetworkAddressGroup implements \Countable
     }
 
     /**
-     * @param string|Addres $address
+     * @param string|Address $address
      *
      * @return boolean true: $this encloses $address, false: otherwise
      */
@@ -69,12 +69,13 @@ class NetworkAddressGroup implements \Countable
     {
         $this->optimize();
         $address = Address::factory($address);
+        $networks = $this->networks;
 
         $min = 0;
         $max = count($this) - 1;
 
-        for ($index = floor($max/2); $min <= $max; $index = floor(($max+$min)/2)) {
-            $network = $this->networks[$index];
+        for ($index = $max >> 1; $min <= $max; $index = ($max+$min) >> 1 ) {
+            $network = $networks[$index];
             if ($network->get_network_start()->compare_to($address) > 0) {
                 $max = $index - 1;
                 continue;
