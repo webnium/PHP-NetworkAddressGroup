@@ -15,7 +15,7 @@ if ($argv[1] === '--help') {
     exit();
 }
 
-$loop = 1000;
+$loop = 100000;
 echo "calling NetworkAddressGroup::encloses(\$ip) $loop times", PHP_EOL;
 $networks = file($argv[1], FILE_IGNORE_NEW_LINES);
 
