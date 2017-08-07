@@ -20,6 +20,7 @@ class NetworkAddressGroup implements \Countable
 
     public function __construct(array $networks = [])
     {
+        $networks = array_unique($networks);
         foreach ($networks as $network) {
             $this->add($network);
         }
@@ -57,6 +58,19 @@ class NetworkAddressGroup implements \Countable
 
         $this->networks = NetworkAddress::merge($this->networks);
         usort($this->networks, [NetworkAddress::class, 'compare']);
+        $networks = $this->networks;
+        $current = array_shift($networks);
+        $optimized = [$current];
+        foreach ($networks as $next) {
+            if ($current->encloses_subnet($next)) {
+                continue;
+            }
+
+            $optimized[] = $next;
+            $current = $next;
+        }
+
+        $this->networks = $optimized;
         $this->optimized = true;
     }
 

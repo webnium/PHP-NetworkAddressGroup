@@ -46,9 +46,9 @@ class NetworkAddressGroupTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function optimizeMethodCompressNetworkAdresses()
+    public function optimizeMethodCompressNetworkAddresses()
     {
-        $group = new NetworkAddressGroup(['192.168.0.0/24', '192.168.1.0/24', '10.0.5.0/24', '10.0.0.0/16']);
+        $group = new NetworkAddressGroup(['192.168.0.0/24', '192.168.1.0/24', '192.168.2.0/24', '10.0.5.0/24', '10.0.0.0/16']);
         $group->optimize();
 
         $this->assertEquals(3, count($group));
@@ -67,7 +67,7 @@ class NetworkAddressGroupTest extends \PHPUnit_Framework_TestCase
 
     public function provideForEnclosesMethod()
     {
-        $networks = ['192.168.0.0/24', '192.168.1.0/24', '10.0.0.0/24', '10.0.2.0/14'];
+        $networks = ['192.168.0.0/24', '192.168.1.0/24', '10.0.0.0/24', '10.0.2.0/24'];
 
         return [
             'not enclosed, by string' => [$networks, '127.0.0.1', false],
@@ -81,5 +81,22 @@ class NetworkAddressGroupTest extends \PHPUnit_Framework_TestCase
             'enclosed one /32 network' => [['192.168.1.1/32'], '192.168.1.1', true],
             'not enclosed with empty group' => [[], '192.168.1.1', false],
         ];
+    }
+
+    /**
+     * @test
+     * issue #1
+     */
+    public function workWithNetworkIncludingOtherListedNetworks()
+    {
+        $networks = ['192.168.0.0/24', '10.0.0.0/16', '10.0.2.0/24', '10.0.3.0/24', '10.1.0.0/24', '192.0.2.0/24'];
+
+        $group = new NetworkAddressGroup($networks);
+        $group->optimize();
+
+        $this->assertEquals(4, $group->count());
+        $this->assertTrue($group->encloses('10.0.2.1'));
+        $this->assertTrue($group->encloses('10.0.1.1'));
+        $this->assertFalse($group->encloses('10.1.1.1'));
     }
 }
